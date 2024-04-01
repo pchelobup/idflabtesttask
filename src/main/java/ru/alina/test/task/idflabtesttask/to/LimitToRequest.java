@@ -1,5 +1,7 @@
 package ru.alina.test.task.idflabtesttask.to;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,8 @@ public class LimitToRequest {
     @NotNull
     LimitCategory category;
 
+    @DecimalMin(value = "0.01")
+    @Digits(integer = 10, fraction = 2)
     @NotNull
     BigDecimal sum;
 

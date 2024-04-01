@@ -1,5 +1,7 @@
 package ru.alina.test.task.idflabtesttask.web.rest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,7 @@ import ru.alina.test.task.idflabtesttask.to.TransactionTo;
 
 @RestController
 @RequestMapping("/v1/api/test-task-bank")
+@Tag(name="Контроллер для приема транзакций", description="Взаимодействие с банковским сервисом")
 public class BankController {
     private static final Logger log = LoggerFactory.getLogger(BankController.class);
     private final TransactionService transactionService;
@@ -24,6 +27,10 @@ public class BankController {
         this.transactionMapper = transactionMapper;
     }
 
+    @Operation(
+            summary = "Сохранение транзакции",
+            description = "Сохраняет полученную транзакцию и помечает транзакцию если месячный лимит исчерпан"
+    )
     @PostMapping("/tr")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveTransaction(@RequestBody @Valid TransactionTo transactionTo) {
