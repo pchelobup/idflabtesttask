@@ -1,6 +1,10 @@
 package ru.alina.test.task.idflabtesttask.to;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 import ru.alina.test.task.idflabtesttask.model.LimitCategory;
 
@@ -9,6 +13,10 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 @Component
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class LimitToRequest {
 
     @NotNull
@@ -20,21 +28,6 @@ public class LimitToRequest {
     @NotNull
     ZoneOffset zoneOffset;
 
-    public LimitCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(LimitCategory category) {
-        this.category = category;
-    }
-
-    public BigDecimal getSum() {
-        return sum;
-    }
-
-    public void setSum(BigDecimal sum) {
-        this.sum = sum;
-    }
 
 
     public void setDatetime(OffsetDateTime datetime) {
@@ -42,11 +35,4 @@ public class LimitToRequest {
     }
 
 
-    public ZoneOffset getZoneOffset() {
-        return zoneOffset;
-    }
-
-    public void setZoneOffset(ZoneOffset zoneOffset) {
-        this.zoneOffset = zoneOffset;
-    }
 }

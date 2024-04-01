@@ -1,12 +1,21 @@
 package ru.alina.test.task.idflabtesttask.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
+
 @Entity
 @Table(name = "exchange_rates")
+@Getter
+@Setter
+@RequiredArgsConstructor
+@ToString
 public class ExchangeRate extends BaseEntity {
 
     @Column(name = "date_exchange_rate")
@@ -19,9 +28,6 @@ public class ExchangeRate extends BaseEntity {
     @Column(name = "value_rate")
     private BigDecimal close;
 
-    public ExchangeRate() {
-    }
-
     public ExchangeRate(Date date, Currency currency, BigDecimal close) {
         this.date = date;
         this.currency = currency;
@@ -33,39 +39,5 @@ public class ExchangeRate extends BaseEntity {
         this.date = date;
         this.currency = currency;
         this.close = close;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
-
-    public BigDecimal getClose() {
-        return close;
-    }
-
-    public void setClose(BigDecimal close) {
-        this.close = close;
-    }
-
-    @Override
-    public String toString() {
-        return "ExchangeRate{" +
-                "date=" + date +
-                ", currency=" + currency +
-                ", rate=" + close +
-                ", id=" + id +
-                '}';
     }
 }

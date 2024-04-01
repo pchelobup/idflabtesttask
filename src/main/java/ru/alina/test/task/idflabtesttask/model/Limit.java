@@ -1,6 +1,10 @@
 package ru.alina.test.task.idflabtesttask.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,27 +14,30 @@ import java.time.ZoneOffset;
 //todo не должно быть сеттера на дату
 @Entity
 @Table(name = "limits")
+@RequiredArgsConstructor
+@Getter
+@ToString
 public class Limit extends BaseEntity {
 
     @Column(name = "limit_category")
     @Enumerated(EnumType.STRING)
+    @Setter
     private LimitCategory category;
 
     @Column(name = "date_set_limit")
-    private LocalDateTime datetime;
+    @Setter
+    private LocalDateTime dateTime;
 
     @Column(name = "zone_offset")
+    @Setter
     private ZoneOffset zoneOffset;
     private BigDecimal sum;
 
-    public Limit() {
-
-    }
 
     public Limit(LimitCategory category, ZoneOffset zoneOffset) {
         this.category = category;
         OffsetDateTime offsetDateTime = OffsetDateTime.now().withOffsetSameInstant(zoneOffset);
-        this.datetime = offsetDateTime.toLocalDateTime();
+        this.dateTime = offsetDateTime.toLocalDateTime();
         this.zoneOffset = zoneOffset;
         this.sum = new BigDecimal("1000");
 
@@ -39,37 +46,9 @@ public class Limit extends BaseEntity {
     public Limit(Long id, LimitCategory category, LocalDateTime date, ZoneOffset zoneOffset, BigDecimal sum) {
         super(id);
         this.category = category;
-        this.datetime = date;
+        this.dateTime = date;
         this.zoneOffset = zoneOffset;
         setSum(sum);
-    }
-
-    public LimitCategory getCategory() {
-        return category;
-    }
-
-    public void setCategory(LimitCategory category) {
-        this.category = category;
-    }
-
-    public LocalDateTime getDateTime() {
-        return datetime;
-    }
-
-    public void setDatetime(LocalDateTime dateTime) {
-        this.datetime = dateTime;
-    }
-
-    public ZoneOffset getZoneOffset() {
-        return zoneOffset;
-    }
-
-    public void setZoneOffset(ZoneOffset zoneOffset) {
-        this.zoneOffset = zoneOffset;
-    }
-
-    public BigDecimal getSum() {
-        return sum;
     }
 
 
@@ -80,15 +59,5 @@ public class Limit extends BaseEntity {
             this.sum = sum;
         }
 
-    }
-
-    @Override
-    public String toString() {
-        return "Limit{" +
-                "category=" + category +
-                ", date=" + datetime +
-                ", sum=" + sum +
-                ", id=" + id +
-                '}';
     }
 }

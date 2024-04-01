@@ -18,7 +18,7 @@ public interface LimitMapper {
     @AfterMapping
     default void initLimit(@MappingTarget Limit limit) {
         OffsetDateTime offsetDateTime = OffsetDateTime.now().withOffsetSameInstant(limit.getZoneOffset());
-        limit.setDatetime(offsetDateTime.toLocalDateTime());
+        limit.setDateTime(offsetDateTime.toLocalDateTime());
     }
 
     @AfterMapping

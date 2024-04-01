@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 
 public interface LimitRepository extends JpaRepository<Limit, Long> {
 
-    @Query("SELECT l FROM Limit l WHERE l.category=:category and l.datetime>=:from and l.datetime<=:to order by l.datetime desc limit 1")
+    @Query("SELECT l FROM Limit l WHERE l.category=:category and l.dateTime>=:from and l.dateTime<=:to order by l.dateTime desc limit 1")
     Limit findLastMonthLimit(LocalDateTime from, LocalDateTime to, LimitCategory category);
 }

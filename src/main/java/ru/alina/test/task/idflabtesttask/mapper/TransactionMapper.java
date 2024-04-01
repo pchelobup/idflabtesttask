@@ -1,7 +1,6 @@
 package ru.alina.test.task.idflabtesttask.mapper;
 
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 import ru.alina.test.task.idflabtesttask.model.Transaction;
 import ru.alina.test.task.idflabtesttask.to.TransactionExceededLimitTo;
 import ru.alina.test.task.idflabtesttask.to.TransactionTo;
@@ -9,7 +8,6 @@ import ru.alina.test.task.idflabtesttask.to.TransactionTo;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface TransactionMapper {
-    TransactionMapper INSTANCE = Mappers.getMapper(TransactionMapper.class);
 
     @Mapping(source = "localDateTime", target = "datetime")
     Transaction toToTransaction(TransactionTo transactionTo);

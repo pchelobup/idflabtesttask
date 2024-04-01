@@ -35,7 +35,7 @@ class LimitServiceTest extends ServiceTest {
     @Test
     void getMonthLimitCreated() {
         Limit actual = service.getMonthLimit(LimitCategory.SERVICE, D_APRIL_START, ZONE_OFFSET);
-        Matcher.match(actual, created, "id","datetime");
+        Matcher.match(actual, created, "id","dateTime");
     }
 
     @Test
