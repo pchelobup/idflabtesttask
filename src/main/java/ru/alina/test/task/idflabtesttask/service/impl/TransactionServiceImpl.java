@@ -12,6 +12,7 @@ import ru.alina.test.task.idflabtesttask.repository.TransactionRepository;
 import ru.alina.test.task.idflabtesttask.service.ExchangeRateService;
 import ru.alina.test.task.idflabtesttask.service.LimitService;
 import ru.alina.test.task.idflabtesttask.service.TransactionService;
+import ru.alina.test.task.idflabtesttask.util.DateTimeUtil;
 import ru.alina.test.task.idflabtesttask.util.TransactionUtil;
 
 import java.math.BigDecimal;
@@ -52,24 +53,24 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public Transaction save(Transaction transaction) {
-        Limit limit = limitService.getMonthLimit(transaction.getExpenseCategory(), transaction.getDatetime(), transaction.getZoneOffset());
-        if (limit == null) {
-            limit = limitService.save(new Limit(transaction.getExpenseCategory(), transaction.getZoneOffset()));
-        }
-
         //setLimit
+        Limit limit = limitService.getMonthLimit(transaction.getExpenseCategory(), transaction.getDatetime());
+        if (limit == null) {
+            limit = limitService.save(new Limit(transaction.getExpenseCategory()));
+        }
         transaction.setLimit(limit);
-        BigDecimal limitSum = transaction.getLimit().getSum();
+
 
         //set sum in USDT
         if (transaction.getCurrency().equals(Currency.USD)) {
             transaction.setSumUSD(transaction.getSum());
         } else {
-            BigDecimal rate = exchangeRatesService.getExchangeRate(Date.from(transaction.getDatetime().toInstant(ZoneOffset.UTC)), transaction.getCurrency()).getClose();
+            BigDecimal rate = exchangeRatesService.getExchangeRate(Date.from(transaction.getDatetime().toInstant()), transaction.getCurrency()).getClose();
             BigDecimal sumInDollars = TransactionUtil.convertToUsd(transaction.getSum(), transaction.getCurrency(), rate);
             transaction.setSumUSD(sumInDollars);
 
         }
+        BigDecimal limitSum = transaction.getLimit().getSum();
 
         //получить лимит в доллраха
         List<Transaction> transactions = getAllInMonth(transaction.getExpenseCategory(), transaction.getDatetime());
@@ -85,11 +86,17 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
 
+    /**
+     * find all transactions in month by dateTo
+     *
+     * @param category
+     * @param dateTo   in UTC
+     * @return
+     */
     @Override
-    public List<Transaction> getAllInMonth(LimitCategory category, LocalDateTime dateTo) {
-        LocalDateTime dateFrom = LocalDateTime.of(dateTo.getYear(), dateTo.getMonth(), 1, 0, 0);
+    public List<Transaction> getAllInMonth(LimitCategory category, OffsetDateTime dateTo) {
         log.info("find transactions for {} category in {} month", category, dateTo.getMonth());
-        return repository.findAllByDatetime(category, dateFrom, dateTo);
+        return repository.findAllByDatetime(category, DateTimeUtil.getStartMonth(dateTo), dateTo);
     }
 
 

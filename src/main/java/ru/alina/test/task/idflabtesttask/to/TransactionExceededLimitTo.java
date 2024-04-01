@@ -1,6 +1,6 @@
 package ru.alina.test.task.idflabtesttask.to;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,9 +9,7 @@ import ru.alina.test.task.idflabtesttask.model.Currency;
 import ru.alina.test.task.idflabtesttask.model.LimitCategory;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
 
 @Component
@@ -24,23 +22,11 @@ public class TransactionExceededLimitTo {
     private Currency currency;
     private BigDecimal sum;
     private LimitCategory expenseCategory;
-    private OffsetDateTime dateTime;
-
-    @JsonIgnore
-    private LocalDateTime localDateTime;
-
-    @JsonIgnore
-    private ZoneOffset zoneOffset;
+    private OffsetDateTime datetime;
 
     private BigDecimal limitSum;
 
     private OffsetDateTime limitDatetime;
-
-    @JsonIgnore
-    private LocalDateTime limitLocalDateTime;
-
-    @JsonIgnore
-    private ZoneOffset limitZoneOffset;
 
 
     private Currency limitCurrency;

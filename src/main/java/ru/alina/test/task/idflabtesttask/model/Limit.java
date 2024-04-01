@@ -7,11 +7,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
-//todo не должно быть сеттера на дату
 @Entity
 @Table(name = "limits")
 @RequiredArgsConstructor
@@ -19,35 +17,30 @@ import java.time.ZoneOffset;
 @ToString
 public class Limit extends BaseEntity {
 
+    @Setter
     @Column(name = "limit_category")
     @Enumerated(EnumType.STRING)
-    @Setter
     private LimitCategory category;
 
     @Column(name = "date_set_limit")
-    @Setter
-    private LocalDateTime dateTime;
+    private OffsetDateTime datetime;
 
-    @Column(name = "zone_offset")
-    @Setter
-    private ZoneOffset zoneOffset;
     private BigDecimal sum;
 
-
-    public Limit(LimitCategory category, ZoneOffset zoneOffset) {
-        this.category = category;
-        OffsetDateTime offsetDateTime = OffsetDateTime.now().withOffsetSameInstant(zoneOffset);
-        this.dateTime = offsetDateTime.toLocalDateTime();
-        this.zoneOffset = zoneOffset;
-        this.sum = new BigDecimal("1000");
-
+    {
+        this.datetime = OffsetDateTime.now(ZoneOffset.UTC);
     }
 
-    public Limit(Long id, LimitCategory category, LocalDateTime date, ZoneOffset zoneOffset, BigDecimal sum) {
+
+    public Limit(LimitCategory category) {
+        this.category = category;
+        this.sum = new BigDecimal("1000");
+    }
+
+    public Limit(Long id, LimitCategory category, OffsetDateTime date, BigDecimal sum) {
         super(id);
         this.category = category;
-        this.dateTime = date;
-        this.zoneOffset = zoneOffset;
+        this.datetime = date;
         setSum(sum);
     }
 

@@ -13,7 +13,6 @@ import ru.alina.test.task.idflabtesttask.model.Currency;
 import ru.alina.test.task.idflabtesttask.model.LimitCategory;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -23,7 +22,6 @@ import java.time.ZoneOffset;
 @NoArgsConstructor
 @ToString
 public class TransactionTo {
-
     @NotNull
     @Min(1000000000)
     @Max(9999999999L)
@@ -43,20 +41,12 @@ public class TransactionTo {
     @NotNull
     private LimitCategory expenseCategory;
 
+    @NotNull
     private OffsetDateTime datetime;
 
-    @JsonIgnore
-    private LocalDateTime localDateTime;
 
     @JsonIgnore
     private ZoneOffset zoneOffset;
-
-
-    public void setDatetime(OffsetDateTime datetime) {
-        this.localDateTime = datetime.toLocalDateTime();
-        this.zoneOffset = datetime.getOffset();
-    }
-
 
 
 }

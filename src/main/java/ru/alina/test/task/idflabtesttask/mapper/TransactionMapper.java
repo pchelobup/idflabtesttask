@@ -9,19 +9,21 @@ import ru.alina.test.task.idflabtesttask.to.TransactionTo;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface TransactionMapper {
 
-    @Mapping(source = "localDateTime", target = "datetime")
     Transaction toToTransaction(TransactionTo transactionTo);
 
-    @Mapping(source = "datetime", target = "localDateTime")
+
     @Mapping(source = "limit.sum", target = "limitSum")
-    @Mapping(source = "limit.zoneOffset", target = "limitZoneOffset")
-    @Mapping(source = "limit.dateTime", target = "limitLocalDateTime")
+    @Mapping(source = "limit.datetime", target = "limitDatetime")
     TransactionExceededLimitTo limitExceededToToTransaction(Transaction transaction);
 
     @AfterMapping
-    default void initTransactionExceededLimitTo(@MappingTarget TransactionExceededLimitTo transactionExceededLimitTo) {
-        transactionExceededLimitTo.setDateTime(transactionExceededLimitTo.getLocalDateTime().atOffset(transactionExceededLimitTo.getZoneOffset()));
-        transactionExceededLimitTo.setLimitDatetime(transactionExceededLimitTo.getLimitLocalDateTime().atOffset(transactionExceededLimitTo.getLimitZoneOffset()));
+    default void initTransactionExceededLimitTo(@MappingTarget TransactionExceededLimitTo transactionExceededLimitTo, Transaction transaction) {
+        transactionExceededLimitTo.setDatetime(transaction.getDatetime().withOffsetSameInstant(transaction.getZoneOffset()));
+    }
+
+    @AfterMapping
+    default void initTransaction(@MappingTarget Transaction transaction, TransactionTo transactionTo) {
+        transaction.setZoneOffset(transactionTo.getDatetime().getOffset());
     }
 
 

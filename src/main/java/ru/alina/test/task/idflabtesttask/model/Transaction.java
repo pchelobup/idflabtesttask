@@ -8,7 +8,7 @@ import lombok.ToString;
 import ru.alina.test.task.idflabtesttask.exception.BadJsonParam;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
 @Entity
@@ -37,7 +37,7 @@ public class Transaction extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private LimitCategory expenseCategory;
 
-    private LocalDateTime datetime;
+    private OffsetDateTime datetime;
 
     @Column(name = "zone_offset")
     private ZoneOffset zoneOffset;
@@ -45,7 +45,7 @@ public class Transaction extends BaseEntity {
 
     @Column(name = "limit_exceeded")
     private Boolean limitExceeded;
-    public Transaction(Long id, long accountFrom, long accountTo, Currency currency, BigDecimal sum, BigDecimal sumUSD, LimitCategory expenseCategory, LocalDateTime datetime, ZoneOffset zoneOffset, Boolean limitExceeded) {
+    public Transaction(Long id, long accountFrom, long accountTo, Currency currency, BigDecimal sum, BigDecimal sumUSD, LimitCategory expenseCategory, OffsetDateTime datetime, ZoneOffset zoneOffset, Boolean limitExceeded) {
         super(id);
         this.accountFrom = accountFrom;
         this.accountTo = accountTo;

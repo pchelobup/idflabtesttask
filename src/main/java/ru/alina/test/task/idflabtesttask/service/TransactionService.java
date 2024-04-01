@@ -3,7 +3,7 @@ package ru.alina.test.task.idflabtesttask.service;
 import ru.alina.test.task.idflabtesttask.model.LimitCategory;
 import ru.alina.test.task.idflabtesttask.model.Transaction;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public interface TransactionService {
@@ -11,6 +11,6 @@ public interface TransactionService {
 
     Transaction save(Transaction transaction);
 
-    List<Transaction> getAllInMonth(LimitCategory category, LocalDateTime dateTo);
+    List<Transaction> getAllInMonth(LimitCategory category, OffsetDateTime dateTo);
 
 }

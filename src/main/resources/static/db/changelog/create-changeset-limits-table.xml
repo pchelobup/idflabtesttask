@@ -20,9 +20,6 @@
             <column name="date_set_limit" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="zone_offset" type="varchar(64)">
-                <constraints nullable="false"/>
-            </column>
             <column name="sum" type="numeric">
                 <constraints nullable="false"/>
             </column>

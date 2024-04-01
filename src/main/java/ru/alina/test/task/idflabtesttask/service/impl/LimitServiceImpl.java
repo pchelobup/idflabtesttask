@@ -8,10 +8,10 @@ import ru.alina.test.task.idflabtesttask.model.Limit;
 import ru.alina.test.task.idflabtesttask.model.LimitCategory;
 import ru.alina.test.task.idflabtesttask.repository.LimitRepository;
 import ru.alina.test.task.idflabtesttask.service.LimitService;
+import ru.alina.test.task.idflabtesttask.util.DateTimeUtil;
 import ru.alina.test.task.idflabtesttask.util.ValidationUtil;
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -26,17 +26,16 @@ public class LimitServiceImpl implements LimitService {
 
     /**
      * @param category
-     * @param date     дата, на снов месяца из это йдаты отдается последний установленный лимит в этом месяце
+     * @param dateTime дата и время в utc, на снов месяца из это йдаты отдается последний установленный лимит в этом месяце
      *                 если лимит еще не был утсановленн но уставнливается в этой же транзакции в сумме 1000 USD
-     * @return
+     * @return actual limit
      */
     @Override
     @Transactional
-    public Limit getMonthLimit(LimitCategory category, LocalDateTime date, ZoneOffset zoneOffset) {
-        LocalDateTime dateFrom = LocalDateTime.of(date.getYear(), date.getMonth(), 1, 0, 0);
-        Limit limit = limitRepository.findLastMonthLimit(dateFrom, date, category);
+    public Limit getMonthLimit(LimitCategory category, OffsetDateTime dateTime) {
+        Limit limit = limitRepository.findLastMonthLimit(dateTime, DateTimeUtil.getStartNextMonth(dateTime), category);
         log.info("get limit {} IN getMonthLimit", limit);
-        return limit == null ? save(new Limit(category, zoneOffset)) : limit;
+        return limit == null ? save(new Limit(category)) : limit;
     }
 
     @Override

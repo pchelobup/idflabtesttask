@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import ru.alina.test.task.idflabtesttask.model.LimitCategory;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
 @Component
 @Getter
@@ -18,21 +16,10 @@ import java.time.ZoneOffset;
 @NoArgsConstructor
 @ToString
 public class LimitToRequest {
-
     @NotNull
     LimitCategory category;
 
     @NotNull
     BigDecimal sum;
-
-    @NotNull
-    ZoneOffset zoneOffset;
-
-
-
-    public void setDatetime(OffsetDateTime datetime) {
-        this.zoneOffset = datetime.getOffset();
-    }
-
 
 }

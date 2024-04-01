@@ -22,19 +22,19 @@ class LimitServiceTest extends ServiceTest {
 
     @Test
     void getMonthLimit() {
-        Limit actual = service.getMonthLimit(LimitCategory.PRODUCT, D_APRIL_START, ZONE_OFFSET);
+        Limit actual = service.getMonthLimit(LimitCategory.PRODUCT, D_APRIL_START);
         Matcher.match(actual, LIMIT_1);
     }
 
     @Test
     void getMonthLimit2() {
-        Limit actual = service.getMonthLimit(LimitCategory.PRODUCT, D_FEBRUARY_MIDDLE, ZONE_OFFSET);
+        Limit actual = service.getMonthLimit(LimitCategory.PRODUCT, D_FEBRUARY_MIDDLE);
         Matcher.match(actual, LIMIT_6, "date");
     }
 
     @Test
     void getMonthLimitCreated() {
-        Limit actual = service.getMonthLimit(LimitCategory.SERVICE, D_APRIL_START, ZONE_OFFSET);
+        Limit actual = service.getMonthLimit(LimitCategory.SERVICE, D_APRIL_START);
         Matcher.match(actual, created, "id","dateTime");
     }
 

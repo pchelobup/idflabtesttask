@@ -12,7 +12,6 @@ create TABLE limits
     id             BIGINT PRIMARY KEY DEFAULT nextval('global_seq'),
     limit_category VARCHAR(7) NOT NULL,
     date_set_limit timestamp  NOT NULL,
-    zone_offset    varchar(6) NOT NULL,
     sum            NUMERIC    NOT NULL
 );
 

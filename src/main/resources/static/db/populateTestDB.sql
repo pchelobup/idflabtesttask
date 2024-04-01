@@ -5,13 +5,13 @@ FROM exchange_rates;
 DELETE
 FROM limits;
 
-INSERT INTO limits(id, limit_category, date_set_limit, zone_offset, sum)
-VALUES (1, 'PRODUCT', '2024-01-01 10:00:00', '+02:00', 1000),
-       (2, 'SERVICE', '2024-01-01 10:00:00', '+02:00', 1000),
-       (3, 'PRODUCT', '2024-01-10 10:00:00', '+02:00', 5000),
-       (4, 'PRODUCT', '2024-02-01 10:00:00', '+02:00', 1000),
-       (5, 'SERVICE', '2024-02-01 10:00:00', '+02:00', 1000),
-       (6, 'PRODUCT', '2024-02-11 10:00:00', '+02:00', 400);
+INSERT INTO limits(id, limit_category, date_set_limit,  sum)
+VALUES (1, 'PRODUCT', '2024-01-01 10:00:00',  1000),
+       (2, 'SERVICE', '2024-01-01 10:00:00',  1000),
+       (3, 'PRODUCT', '2024-01-10 10:00:00',  5000),
+       (4, 'PRODUCT', '2024-02-01 10:00:00',  1000),
+       (5, 'SERVICE', '2024-02-01 10:00:00',  1000),
+       (6, 'PRODUCT', '2024-02-11 10:00:00',  400);
 
 INSERT INTO transactions(id, limit_id, account_from, account_to, currency_shortname, sum, sum_usd, expense_category,
                          datetime, zone_offset, limit_exceeded)

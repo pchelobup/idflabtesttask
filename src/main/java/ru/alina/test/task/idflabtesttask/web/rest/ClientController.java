@@ -3,7 +3,6 @@ package ru.alina.test.task.idflabtesttask.web.rest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,10 +42,10 @@ public class ClientController {
     @GetMapping("/tr-exceed")
     public ResponseEntity<?> getExceededTransactions() {
         log.info("IN getExceededTransactions");
-        List<Transaction> transactionTo = transactionService.getExceededLimitTransactions();
+        List<Transaction> transaction = transactionService.getExceededLimitTransactions();
         List<TransactionExceededLimitTo> response = new ArrayList<>();
 
-        transactionTo.forEach(t -> response.add(transactionMapper.limitExceededToToTransaction(t)));
+        transaction.forEach(t -> response.add(transactionMapper.limitExceededToToTransaction(t)));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
