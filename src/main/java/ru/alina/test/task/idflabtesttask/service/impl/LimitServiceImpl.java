@@ -25,15 +25,17 @@ public class LimitServiceImpl implements LimitService {
     }
 
     /**
-     * @param category
-     * @param dateTime дата и время в utc, на снов месяца из это йдаты отдается последний установленный лимит в этом месяце
+     * @param category катеория транзакции
+     * @param dateTime дата и время в utc, на основ месяца из этой даты отдается последний установленный лимит в этом месяце
      *                 если лимит еще не был утсановленн но уставнливается в этой же транзакции в сумме 1000 USD
      * @return actual limit
      */
     @Override
     @Transactional
     public Limit getMonthLimit(LimitCategory category, OffsetDateTime dateTime) {
-        Limit limit = limitRepository.findLastMonthLimit(dateTime, DateTimeUtil.getStartNextMonth(dateTime), category);
+        System.out.println(DateTimeUtil.getStartMonth(dateTime));
+        System.out.println(DateTimeUtil.getStartNextMonth(dateTime));
+        Limit limit = limitRepository.findLastMonthLimit(DateTimeUtil.getStartMonth(dateTime), DateTimeUtil.getStartNextMonth(dateTime), category);
         log.info("get limit {} IN getMonthLimit", limit);
         return limit == null ? save(new Limit(category)) : limit;
     }

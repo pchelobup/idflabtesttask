@@ -1,14 +1,11 @@
 package ru.alina.test.task.idflabtesttask.service;
 
-//todo проверить в один день но в разное время
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.alina.test.task.idflabtesttask.Matcher;
 import ru.alina.test.task.idflabtesttask.model.Limit;
 import ru.alina.test.task.idflabtesttask.model.LimitCategory;
-
 
 import java.math.BigDecimal;
 
@@ -22,8 +19,8 @@ class LimitServiceTest extends ServiceTest {
 
     @Test
     void getMonthLimit() {
-        Limit actual = service.getMonthLimit(LimitCategory.PRODUCT, D_APRIL_START);
-        Matcher.match(actual, LIMIT_1);
+        Limit actual = service.getMonthLimit(LimitCategory.PRODUCT, D_JENUARY);
+        Matcher.match(actual, LIMIT_3);
     }
 
     @Test
@@ -35,7 +32,7 @@ class LimitServiceTest extends ServiceTest {
     @Test
     void getMonthLimitCreated() {
         Limit actual = service.getMonthLimit(LimitCategory.SERVICE, D_APRIL_START);
-        Matcher.match(actual, created, "id","dateTime");
+        Matcher.match(actual, created, "id", "datetime");
     }
 
     @Test
@@ -60,6 +57,6 @@ class LimitServiceTest extends ServiceTest {
 
     @Test
     void update() {
-        assertThrows(IllegalArgumentException.class, ()-> service.save(LIMIT_1));
+        assertThrows(IllegalArgumentException.class, () -> service.save(LIMIT_1));
     }
 }
