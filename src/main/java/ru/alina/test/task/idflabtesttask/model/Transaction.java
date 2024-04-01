@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.alina.test.task.idflabtesttask.exception.BadJsonParam;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -55,5 +56,12 @@ public class Transaction extends BaseEntity {
         this.datetime = datetime;
         this.zoneOffset = zoneOffset;
         this.limitExceeded = limitExceeded;
+    }
+
+    public void setSum(BigDecimal sum) {
+        if (sum.compareTo(BigDecimal.ZERO)<=0) {
+            throw  new BadJsonParam("sum of transaction must be more than 0");
+        }
+        this.sum = sum;
     }
 }
