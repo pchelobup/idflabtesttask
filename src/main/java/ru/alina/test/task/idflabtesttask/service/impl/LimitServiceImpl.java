@@ -33,8 +33,6 @@ public class LimitServiceImpl implements LimitService {
     @Override
     @Transactional
     public Limit getMonthLimit(LimitCategory category, OffsetDateTime dateTime) {
-        System.out.println(DateTimeUtil.getStartMonth(dateTime));
-        System.out.println(DateTimeUtil.getStartNextMonth(dateTime));
         Limit limit = limitRepository.findLastMonthLimit(DateTimeUtil.getStartMonth(dateTime), DateTimeUtil.getStartNextMonth(dateTime), category);
         log.info("get limit {} IN getMonthLimit", limit);
         return limit == null ? save(new Limit(category)) : limit;

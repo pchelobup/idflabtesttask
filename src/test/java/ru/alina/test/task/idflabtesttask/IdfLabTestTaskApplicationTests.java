@@ -5,7 +5,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class IdfLabTestTaskApplicationTests {
-
     @Test
     void contextLoads() {
     }

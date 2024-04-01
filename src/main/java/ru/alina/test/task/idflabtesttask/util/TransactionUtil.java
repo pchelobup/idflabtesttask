@@ -4,11 +4,12 @@ import ru.alina.test.task.idflabtesttask.model.Currency;
 import ru.alina.test.task.idflabtesttask.model.Transaction;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+
 
 public class TransactionUtil {
     /**
-     *
      * @param transactions транзакции
      * @return сумму транзакций в доллорах
      */
@@ -23,6 +24,6 @@ public class TransactionUtil {
     public static BigDecimal convertToUsd(BigDecimal sum, Currency currency, BigDecimal rate) {
         if (currency.equals(Currency.USD)) return sum;
 
-        return sum.multiply(rate);
+        return sum.multiply(rate).setScale(2, RoundingMode.HALF_UP);
     }
 }

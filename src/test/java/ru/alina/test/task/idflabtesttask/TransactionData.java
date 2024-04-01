@@ -24,13 +24,13 @@ public class TransactionData {
     public static List<Transaction> TRANSACTIONS_PRODUCT_FEBRUARY = List.of(TRANSACTION_4, TRANSACTION_5);
 
     public static Transaction getNewLimitExceededFalse() {
-        Transaction transaction = new Transaction(null, 1111111111, 2222222222L, Currency.RUB, new BigDecimal("1"), new BigDecimal("0.01081"), LimitCategory.SERVICE, OffsetDateTime.of(2024, 2, 14, 11, 0, 0, 0, ZoneOffset.UTC), ZONE_OFFSET, null);
+        Transaction transaction = new Transaction(null, 1111111111, 2222222222L, Currency.RUB, new BigDecimal("1"), new BigDecimal("0.01"), LimitCategory.SERVICE, OffsetDateTime.of(2024, 2, 14, 11, 0, 0, 0, ZoneOffset.UTC), ZONE_OFFSET, null);
         transaction.setLimit(LimitData.LIMIT_5);
         return transaction;
     }
 
     public static Transaction getNewLimitExceededTrue() {
-        Transaction transaction = new Transaction(null, 1111111111, 2222222222L, Currency.RUB, new BigDecimal("20200"), new BigDecimal("218.36200"), LimitCategory.PRODUCT, OffsetDateTime.of(2024, 2, 14, 11, 0, 0, 0, ZoneOffset.UTC), ZONE_OFFSET, null);
+        Transaction transaction = new Transaction(null, 1111111111, 2222222222L, Currency.RUB, new BigDecimal("20200"), new BigDecimal("219.17"), LimitCategory.PRODUCT, OffsetDateTime.of(2024, 2, 14, 11, 0, 0, 0, ZoneOffset.UTC), ZONE_OFFSET, null);
         transaction.setLimit(LimitData.LIMIT_6);
         return transaction;
     }
