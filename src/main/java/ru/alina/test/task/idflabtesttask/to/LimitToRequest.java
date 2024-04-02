@@ -7,16 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.stereotype.Component;
+import ru.alina.test.task.idflabtesttask.exception.BadJsonParam;
 import ru.alina.test.task.idflabtesttask.model.LimitCategory;
 
 import java.math.BigDecimal;
 
-@Component
+
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
 public class LimitToRequest {
     @NotNull
     LimitCategory category;
@@ -26,4 +26,11 @@ public class LimitToRequest {
     @NotNull
     BigDecimal sum;
 
+    public void setSum(BigDecimal sum) {
+        if (sum.compareTo(BigDecimal.ZERO) < 0) {
+            throw new BadJsonParam("sum must be 0 or bigger than 0");
+        } else {
+            this.sum = sum;
+        }
+    }
 }
